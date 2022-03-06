@@ -7,16 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12640ABE27D2995A00436612 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 12640ABC27D2995A00436612 /* DataModel.xcdatamodeld */; };
 		1270F9532743EB70002466AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1270F9522743EB70002466AD /* AppDelegate.swift */; };
 		1270F9552743EB70002466AD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1270F9542743EB70002466AD /* SceneDelegate.swift */; };
 		1270F95A2743EB70002466AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1270F9582743EB70002466AD /* Main.storyboard */; };
 		1270F95C2743EB70002466AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1270F95B2743EB70002466AD /* Assets.xcassets */; };
 		1270F95F2743EB70002466AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1270F95D2743EB70002466AD /* LaunchScreen.storyboard */; };
 		1270F9672743ECE8002466AD /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1270F9662743ECE8002466AD /* TodoListViewController.swift */; };
-		12B19ECF274696AB00B4A395 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B19ECE274696AB00B4A395 /* Item.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		12640ABD27D2995A00436612 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		1270F94F2743EB70002466AD /* Todoey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todoey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1270F9522743EB70002466AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1270F9542743EB70002466AD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -25,7 +26,6 @@
 		1270F95E2743EB70002466AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1270F9602743EB70002466AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1270F9662743ECE8002466AD /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
-		12B19ECE274696AB00B4A395 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +80,7 @@
 		12B19ECB2746963B00B4A395 /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				12B19ECE274696AB00B4A395 /* Item.swift */,
+				12640ABC27D2995A00436612 /* DataModel.xcdatamodeld */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -173,7 +173,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12B19ECF274696AB00B4A395 /* Item.swift in Sources */,
+				12640ABE27D2995A00436612 /* DataModel.xcdatamodeld in Sources */,
 				1270F9672743ECE8002466AD /* TodoListViewController.swift in Sources */,
 				1270F9532743EB70002466AD /* AppDelegate.swift in Sources */,
 				1270F9552743EB70002466AD /* SceneDelegate.swift in Sources */,
@@ -396,6 +396,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		12640ABC27D2995A00436612 /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				12640ABD27D2995A00436612 /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 12640ABD27D2995A00436612 /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1270F9472743EB70002466AD /* Project object */;
 }
