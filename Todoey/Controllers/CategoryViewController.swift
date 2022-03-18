@@ -61,10 +61,6 @@ class CategoryViewController: UITableViewController {
     
     //MARK: - TableView Delegate Method
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "goToItems", sender: self)
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destination = segue.destination as! TodoListViewController
         
@@ -72,6 +68,11 @@ class CategoryViewController: UITableViewController {
             destination.selectedCategory = categoryArray[indexPath.row]
         }
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "goToItems", sender: self)
+    }
+    
     
     //MARK: - Data Munipulatin Methods
     func saveCategories() {

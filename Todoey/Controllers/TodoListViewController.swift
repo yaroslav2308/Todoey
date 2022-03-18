@@ -14,8 +14,7 @@ class TodoListViewController: UITableViewController {
     
     var selectedCategory : Category? {
         didSet {
-            let predicate = NSPredicate(format: "parentCategory MATCHES %@", selectedCategory!.name!)
-            loadItems(predicate: predicate)
+            loadItems()
         }
     }
     
@@ -93,11 +92,17 @@ class TodoListViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
-    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest(), predicate: NSPredicate) {
+    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest(), predicate: NSPredicate? = nil) {
         
        
         
-        request.predicate = predicate
+        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
+        
+        if let newPredicate = predicate {
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, newPredicate])
+        } else {
+            request.predicate = categoryPredicate
+        }
         
         do {
             itemArray = try context.fetch(request)
@@ -128,8 +133,7 @@ extension TodoListViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchBar.text?.count == 0 {
-            let predicate = NSPredicate(format: "parentCategory MATCHES %@", selectedCategory!.name!)
-            loadItems(predicate: predicate)
+            loadItems()
             
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder()
