@@ -6,9 +6,11 @@
 //
 
 import UIKit
-import CoreData
+import RealmSwift
 
 class CategoryViewController: UITableViewController {
+    
+    let realm = try! Realm()
 
     var categoryArray = [Category]()
     
@@ -26,13 +28,13 @@ class CategoryViewController: UITableViewController {
         
         let action = UIAlertAction(title: "Add Category", style: .default) { [self] action in
             // what will happen once the user clicks the add button on Ui Alert
-            let newCategory = Category(context: self.context)
+            let newCategory = Category()
             
             newCategory.name = textField.text!
             
             self.categoryArray.append(newCategory)
             
-            saveCategories()
+            save(category: newCategory)
         }
         
         alert.addTextField { alertTextField in
@@ -75,10 +77,12 @@ class CategoryViewController: UITableViewController {
     
     
     //MARK: - Data Munipulatin Methods
-    func saveCategories() {
+    func save(category: Category) {
         
         do {
-            try context.save()
+            try realm.write({
+                realm.add(category)
+            })
         } catch {
             print("Error saving context \(error)")
         }
@@ -86,42 +90,42 @@ class CategoryViewController: UITableViewController {
         self.tableView.reloadData()
     }
     
-    func loadCategories(with request: NSFetchRequest<Category> = Category.fetchRequest()) {
-        do {
-            categoryArray = try context.fetch(request)
-        } catch {
-            print("Error fetching context \(error)")
-        }
-        
-        tableView.reloadData()
+    func loadCategories() {
+//        do {
+//            categoryArray = try context.fetch(request)
+//        } catch {
+//            print("Error fetching context \(error)")
+//        }
+//
+//        tableView.reloadData()
     }
 }
 
-extension CategoryViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//extension CategoryViewController: UISearchBarDelegate {
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+////
+////        guard let searchBarText = searchBar.text else {
+////            searchBar.placeholder = "Type Something"
+////            return
+////        }
 //
-//        guard let searchBarText = searchBar.text else {
-//            searchBar.placeholder = "Type Something"
-//            return
+//        let request: NSFetchRequest<Category> = Category.fetchRequest()
+//
+//        request.predicate = NSPredicate(format: "name CONTAINS[cd] %@", searchBar.text!)
+//
+//        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+//
+//        loadCategories(with: request)
+//    }
+//
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        if searchBar.text?.count == 0 {
+//            loadCategories()
+//
+//            DispatchQueue.main.async {
+//                searchBar.resignFirstResponder()
+//            }
+//
 //        }
-        
-        let request: NSFetchRequest<Category> = Category.fetchRequest()
-        
-        request.predicate = NSPredicate(format: "name CONTAINS[cd] %@", searchBar.text!)
-        
-        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-        
-        loadCategories(with: request)
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchBar.text?.count == 0 {
-            loadCategories()
-            
-            DispatchQueue.main.async {
-                searchBar.resignFirstResponder()
-            }
-            
-        }
-    }
-}
+//    }
+//}
