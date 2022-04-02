@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-class TodoListViewController: UITableViewController {
+class TodoListViewController: SwipeTableViewController {
     
     var todoItems: Results<Item>?
     let realm = try! Realm()
@@ -22,7 +22,8 @@ class TodoListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+        tableView.rowHeight = 100.0
+        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -30,7 +31,8 @@ class TodoListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
+        
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
         cell.textLabel?.text = todoItems?[indexPath.row].title ?? "No Items Added yet"
         
@@ -71,8 +73,9 @@ class TodoListViewController: UITableViewController {
                     try self.realm.write({
                         let newItem = Item()
                         newItem.title = textField.text!
-//                        newItem.dateCreated = Date.now
+                        newItem.dateCreated = Date()
                         currentCategory.items.append(newItem)
+                        print(currentCategory.items)
                     })
                 } catch {
                     print("Error saving item \(error)")
@@ -99,6 +102,20 @@ class TodoListViewController: UITableViewController {
 
         tableView.reloadData()
     }
+    
+    //MARK: - Delete Item Data Method
+    
+    override func updateModel(at indexPath: IndexPath) {
+        guard let toDeleteItem = self.todoItems?[indexPath.row] else { print("Not able delete unexisting item")
+            return}
+        do {
+            try self.realm.write {
+                self.realm.delete(toDeleteItem)
+            }
+        } catch {
+            print("\(error)")
+        }
+    }
 }
 
 extension TodoListViewController: UISearchBarDelegate {
@@ -108,7 +125,7 @@ extension TodoListViewController: UISearchBarDelegate {
 //            searchBar.placeholder = "Type Something"
 //            return
 //        }
-        todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: false)
+        todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: true)
         tableView.reloadData()
     }
 
